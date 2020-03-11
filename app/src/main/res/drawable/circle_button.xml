@@ -1,0 +1,12 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <stroke android:color="#C2F0EA"
+            android:width="24dp" />
+    <solid android:color="#C2F0EA" />
+    <size android:width="120dp"
+          android:height="120dp" />
+</shape>
+
+    <!--
+        This is used for the circular buttons' background.
+    -->

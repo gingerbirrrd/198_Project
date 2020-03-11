@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This is the layout for the About page.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity_about"
+    android:background="#000000">
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/circle_button"
+        android:text="CLOSE"
+        android:textColor="#000000"
+        android:textSize="5pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.074" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="187dp"
+        android:layout_height="64dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:textSize="15pt"
+        android:text="About" />
+
+    <me.biubiubiu.justifytext.library.JustifyTextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="528dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="70dp"
+        android:text="\t\t\t\tGangsa is a single-handheld smooth-surfaced metal gong with a narrow rim. The
+circular, bronze gong is classified as a struck idiophone in the Sachs-Hornbostel System. An
+ensemble of gangsa usually consists of six(6) gongs which vary in size such
+that the largest gong and the smallest gong have the lowest and highest pitch, respectively. It
+is played by using two techniques - toppaya which involves the use of bare hands in beating and
+is done in a half kneeling position with the gongs placed on the laps of men playing them; and
+palook or pattung which involves the use of a wooden mallet, or a stick. The gong can be played
+using several styles such as damping, sliding of the palm, or simply letting it ring. Regarded
+as one of the most sacred instruments in the Cordillera region in the Philippines, they provide rhythm and music to the dances
+performed in rituals, feasts, and other cultural gatherings.
+\n\n\t\t\tThis Android mobile application is part of an undergraduate research project
+of students from the University of the Philippines Diliman. It aims to demonstrate
+different playing styles of gangsa using gestures and corresponding
+digitally synthesized sounds of said instrument.\n"
+        tools:ignore="HardcodedText" />
+
+</RelativeLayout>

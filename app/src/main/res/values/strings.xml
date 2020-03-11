@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">198_try</string>
+    <string name="about">About</string>
+
+    <string-array name="options">
+        <item>Gangsa 1 using Hand</item>
+        <item>Gangsa 1 using Stick</item>
+        <item>Gangsa 2 using Hand</item>
+        <item>Gangsa 2 using Stick</item>
+        <item>Gangsa 3 using Hand</item>
+        <item>Gangsa 3 using Stick</item>
+        <item>Gangsa 4 using Hand</item>
+        <item>Gangsa 4 using Stick</item>
+        <item>Gangsa 5 using Hand</item>
+        <item>Gangsa 5 using Stick</item>
+        <item>Gangsa 6 using Hand</item>
+        <item>Gangsa 6 using Stick</item>
+    </string-array>
+</resources>

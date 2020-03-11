@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This is the layout for the slideshow (aka instructions) contents.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="360dp" android:layout_height="600dp"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="0dp"
+    android:layout_gravity="center_horizontal">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/slide_image"
+        android:layout_width="320dp"
+        android:layout_height="380dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        app:srcCompat="@drawable/gangsa3hold" />
+
+    <TextView
+            android:id="@+id/slide_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="345dp"
+            android:gravity="center_horizontal"
+            android:text="Style1" />
+
+        <TextView
+            android:id="@+id/slide_desc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="370dp"
+            android:gravity="center_horizontal"
+            android:text="Instruction \n in \n words" />
+
+</RelativeLayout>

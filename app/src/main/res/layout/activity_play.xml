@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This is the layout for the Instructions page.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity_play"
+    android:id="@+id/relativeLayout"
+    android:background="#000000">
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:background="#C2F0EA" />
+        <!--android:backgroundTint="@color/colorPrimary"
+        android:setTextColor="#000000"-->
+
+    <!--<ImageButton
+        android:id="@+id/imageButton7"
+        android:layout_width="284dp"
+        android:layout_height="407dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="78dp"
+        android:layout_marginEnd="50dp"
+        android:background="@android:color/black"
+        app:srcCompat="@drawable/rsz_3gangsa" />-->
+
+    <ImageButton
+        android:id="@+id/button_gangsa"
+        android:layout_width="333dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000000"
+        android:textSize="5pt"
+        android:onClick="play"
+        android:layout_centerInParent="true"
+        android:background="#000000"/>
+</RelativeLayout>
