@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-    This is the layout for the Instructions page.
+    This is the layout for the Play page.
 -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -36,14 +36,16 @@
         android:background="@android:color/black"
         app:srcCompat="@drawable/rsz_3gangsa" />-->
 
-    <ImageButton
+    <ImageView
         android:id="@+id/button_gangsa"
         android:layout_width="333dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textColor="#000000"
         android:textSize="5pt"
-        android:onClick="play"
         android:layout_centerInParent="true"
-        android:background="#000000"/>
+        android:background="#000000"
+        android:clickable="true"/>
+        <!--android:onClick="play"\-->
+
 </RelativeLayout>

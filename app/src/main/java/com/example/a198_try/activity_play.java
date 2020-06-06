@@ -1,18 +1,23 @@
 package com.example.a198_try;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GestureDetectorCompat;
 
 import android.content.Context;
+import android.gesture.Gesture;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,18 +25,30 @@ import android.widget.Toast;
  * This class manages the Playing page.
  */
 
-public class activity_play extends AppCompatActivity {
+public class activity_play extends AppCompatActivity implements View.OnTouchListener {
 
-    ImageButton button;
+    private ImageView button;
+    private GestureDetectorCompat mGestureDetector;
     Spinner spinner;
-    MediaPlayer player;
+    MediaPlayer player1, player2, player3;
     View v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // SET APP TO FULL SCREEN
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_play);
 
+        /*------------------------SPINNER / DROPDOWN MENU ---------------------------------------*/
+
+        // The following section of code manages the spinner (aka dropdown menu) contents.
+
+        // DROPDOWN ITEM LABEL
         final String str[] = {
                 "Gangsa 1 using Hand", "Gangsa 1 using Stick",
                 "Gangsa 2 using Hand", "Gangsa 2 using Stick",
@@ -41,10 +58,6 @@ public class activity_play extends AppCompatActivity {
                 "Gangsa 6 using Hand", "Gangsa 6 using Stick"};
 
         spinner = findViewById(R.id.spinner1);
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.options, android.R.layout.simple_spinner_item);
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spinner.setAdapter(adapter);
-        //spinner.setOnItemSelectedListener(this);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
@@ -53,6 +66,8 @@ public class activity_play extends AppCompatActivity {
         );
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         spinner.setAdapter(adapter);
+
+        // SET GANGSA IMAGE CORRESPONDING TO THE SELECTED SPINNER ITEM
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -89,151 +104,94 @@ public class activity_play extends AppCompatActivity {
             }
         });
 
+        /*---------------------------------------------------------------------------------------*/
 
-
+        // DECLARATIONS FOR THE NEXT SECTION OF CODE (ON GESTURES DETECTION)
         button = findViewById(R.id.button_gangsa);
-        button.setOnTouchListener(new OnSwipeTouchListener(this) {
-            public void onSwipeTop() {
-
-                playHandSliding(v);
-
-                Toast.makeText(getApplicationContext(), "Swiped", Toast.LENGTH_SHORT).show();
-            }
-
-            public void onSwipeRight() {
-
-                playHandSliding(v);
-
-                Toast.makeText(getApplicationContext(), "Swiped", Toast.LENGTH_SHORT).show();
-            }
-
-            public void onSwipeLeft() {
-
-                playHandSliding(v);
-
-                Toast.makeText(getApplicationContext(), "Swiped", Toast.LENGTH_SHORT).show();
-            }
-
-            public void onSwipeBottom() {
-
-                playHandSliding(v);
-
-               Toast.makeText(getApplicationContext(), "Swiped", Toast.LENGTH_SHORT).show();
-            }
-
-        });
+        button.setOnTouchListener((View.OnTouchListener) this);
+        mGestureDetector = new GestureDetectorCompat(this, new GestureListener());
     }
 
-    class OnSwipeTouchListener implements View.OnTouchListener {
+    /*-------------------- ON TOUCH LISTENER & GESTURE DETECTOR ---------------------------------*/
 
-        private final GestureDetector gestureDetector;
+    // The following section of code manages gesture detection (touch listener and gesture detector).
 
-        public OnSwipeTouchListener(Context ctx) {
-            gestureDetector = new GestureDetector(ctx, new GestureListener());
-        }
+    // LISTEN FOR TOUCH EVENTS (FOR WHEN THE USER TOUCHES THE SCREEN)
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        mGestureDetector.onTouchEvent(event);
 
+        return false;
+    }
+
+    // LISTEN FOR GESTURES (FOR WHEN THE USER PERFORMS ANY OF THE THREE(3) GESTURES:
+    // SINGLE TAP, LONG PRESS, OR FLING
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener{
+
+        // SET CORRESPONDING ACTION FOR WHEN THE USER PERFORMS A LONG PRESS ON THE SCREEN
         @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            return gestureDetector.onTouchEvent(event);
+        public void onLongPress(MotionEvent e) {
+            Toast.makeText(activity_play.this,
+                    "long press", Toast.LENGTH_SHORT).show();    // GESTURE CONFIRMATORY TEXT
+
+            playStickDamping(v);    // AUDIO PLAYBACK
+
+            super.onLongPress(e);
         }
 
-        private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+        // SET CORRESPONDING ACTION FOR WHEN THE USER PERFORMS A FLING ON THE SCREEN
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            Toast.makeText(activity_play.this,
+                    "fling", Toast.LENGTH_SHORT).show();    // GESTURE CONFIRMATORY TEXT
 
-            private static final int SWIPE_THRESHOLD = 300;
-            private static final int SWIPE_VELOCITY_THRESHOLD = 300;
+            playHandSliding(v);    // AUDIO PLAYBACK
 
-            @Override
-            public boolean onDown(MotionEvent e) {
-                return true;
-            }
-
-            @Override
-            public boolean onSingleTapConfirmed(MotionEvent e) {
-
-                playStickRinging(v);
-
-                Log.i("TAG", "onSingleTapConfirmed:");
-                Toast.makeText(getApplicationContext(), "Single Tap Detected", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-
-            @Override
-            public void onLongPress(MotionEvent e) {
-
-                playStickDamping(v);
-
-                Log.i("TAG", "onLongPress:");
-                Toast.makeText(getApplicationContext(), "Long Press Detected", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                boolean result = false;
-                try {
-                    float diffY = e2.getY() - e1.getY();
-                    float diffX = e2.getX() - e1.getX();
-                    if (Math.abs(diffX) > Math.abs(diffY)) {
-                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                            if (diffX > 0) {
-                                onSwipeRight();
-                            } else {
-                                onSwipeLeft();
-                            }
-                            result = true;
-                        }
-                    } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                        if (diffY > 0) {
-                            onSwipeBottom();
-                        } else {
-                            onSwipeTop();
-                        }
-                        result = true;
-                    }
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-                return result;
-            }
-
+            return super.onFling(e1, e2, velocityX, velocityY);
         }
 
+        // SET CORRESPONDING ACTION FOR WHEN THE USER PERFORMS A SINGLE TAP ON THE SCREEN
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            Toast.makeText(activity_play.this,
+                    "single tap", Toast.LENGTH_SHORT).show();   // GESTURE CONFIRMATORY TEXT
 
+            playStickRinging(v);    // AUDIO PLAYBACK
 
-        public void onSwipeRight() {
-        }
-
-        public void onSwipeLeft() {
-        }
-
-        public void onSwipeTop() {
-        }
-
-        public void onSwipeBottom() {
+            return super.onSingleTapConfirmed(e);
         }
     }
 
+    /*-------------------------------------------------------------------------------------------*/
+
+
+    /*--------------------------------- AUDIO PLAYBACK ------------------------------------------*/
+
+    // The following section of code manages audio playback.
+
+    //
     public void playStickRinging(View v){
-        if(player == null){
-            player = MediaPlayer.create(this, R.raw.gsr1_synth);
+        if(player1 == null){
+            player1 = MediaPlayer.create(this, R.raw.gsr1_synth);
         }
 
-        player.start();
+        player1.start();
     }
 
     public void playStickDamping(View v){
-        if(player == null){
-            player = MediaPlayer.create(this, R.raw.gsd1_synth);
+        if(player2 == null){
+            player2 = MediaPlayer.create(this, R.raw.gsd1_synth);
         }
 
-        player.start();
+        player2.start();
     }
 
     public void playHandSliding(View v){
-        if(player == null){
-            player = MediaPlayer.create(this, R.raw.ghd1_synth);
+        if(player3 == null){
+            player3 = MediaPlayer.create(this, R.raw.ghd1_synth);
         }
 
-        player.start();
+        player3.start();
     }
 
 }

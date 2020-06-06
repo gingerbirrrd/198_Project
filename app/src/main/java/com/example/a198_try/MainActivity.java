@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.text.Html;
 import android.transition.Slide;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,19 +39,20 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private Button button;
-
-    //ViewFlipper v_flipper;
-
     private ViewPager mSlideViewPager;
     private LinearLayout mDotLayout;
-
     private TextView[] mDots;
-
     private SliderAdapter sliderAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // SET APP TO FULL SCREEN
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_main);
 
         // ABOUT button
@@ -61,8 +64,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        // SLIDESHOW
+        // INSTRUCTIONS SLIDESHOW
         mSlideViewPager = findViewById(R.id.slideViewPager);
         mDotLayout = findViewById(R.id.dotsLayout);
 
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         mSlideViewPager.setPageTransformer(true, new FlipHorizontalTransformer());
 
 
-        // GO button
+        // GO BUTTON
         button = findViewById(R.id.button3);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -93,14 +95,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // go to the PLAY page
+    // GO TO THE PLAY PAGE
     public void openPlay(){
         Intent intent = new Intent(MainActivity.this, activity_play.class);
         startActivity(intent);
     }
 
 
-    // slideshow dots indicator
+    // SLIDESHOW DOTS INDICATOR
     public void addDotsIndicator(int position){
         mDots = new TextView[4];
         mDotLayout.removeAllViews();
@@ -141,10 +143,3 @@ public class MainActivity extends AppCompatActivity {
 }
 
 // MainActivity is the Instructions page
-
-/**
- sources:
- viewpager: https://www.youtube.com/watch?v=byLKoPgB7yA
- spinner: https://www.youtube.com/watch?v=on_OrrX7Nw4
- play audio file: https://www.youtube.com/watch?v=C_Ka7cKwXW0
- */

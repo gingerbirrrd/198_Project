@@ -30,5 +30,5 @@ dependencies {
     implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:2.0.24'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 
-    compile 'me.biubiubiu.justifytext:library:1.1'
+    implementation 'me.biubiubiu.justifytext:library:1.1'
 }
